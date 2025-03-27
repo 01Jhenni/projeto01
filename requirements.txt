@@ -1,0 +1,9 @@
+streamlit
+sqlite3
+pandas
+datetime
+plotly
+shutil
+zipfile
+tempfile
+hashlib
