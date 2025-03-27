@@ -6,3 +6,4 @@ shutil
 zipfile
 tempfile
 hashlib
+pip install -r requirements.txt
