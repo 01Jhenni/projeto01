@@ -1,9 +1,6 @@
 streamlit
-pandas
-datetime
+
 plotly
-shutil
-zipfile
-tempfile
+
 hashlib
-pip install -r requirements.txt
+
