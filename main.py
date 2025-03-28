@@ -9,11 +9,20 @@ import zipfile
 import tempfile
 from io import BytesIO
 import hashlib
-
-
 import streamlit as st
 import sqlite3
 import hashlib
+import webbrowser
+import os
+import pandas as pd
+import sqlite3
+import streamlit as st
+import urllib.parse
+import sqlite3
+import os
+from datetime import datetime
+
+
 
 # Conectar ao banco de dados
 conn = sqlite3.connect("users.db", check_same_thread=False)
@@ -241,7 +250,6 @@ if menu == "Organizar Arquivos Fiscais":
     uploaded_files = st.file_uploader("Envie seus arquivos XML, TXT, ZIP ou Excel", accept_multiple_files=True)
 
 
-import streamlit as st
 
 if menu == "Organizar Arquivos Fiscais": 
     if st.button("Processar Arquivos"):
@@ -287,12 +295,6 @@ elif menu == "Controle Importação":
             st.success("✅ Registro salvo com sucesso!")
         
 
-import webbrowser
-import os
-import pandas as pd
-import sqlite3
-import streamlit as st
-import urllib.parse
 
 # Função para abrir o Outlook com uma nova mensagem
 def open_outlook(email_destino, assunto, corpo, arquivo_erro=None):
@@ -422,10 +424,6 @@ elif menu == "Indicadores":
         st.info("Nenhum registro encontrado para hoje.")
 
 
-import streamlit as st
-import sqlite3
-import os
-from datetime import datetime
 
 # Função para carregar as mensagens salvas
 def load_messages():
@@ -494,8 +492,6 @@ if menu == "Chat":
 
 
 
-
-import streamlit as st
 
 # Função para exibir a página inicial
 if menu == "Página Inicial":
