@@ -287,7 +287,16 @@ elif menu == "Controle Importação":
                     f.write(arquivo.read())
             
             status = 'OK' if not erro else 'Pendente'
-            print(data_atual, empresa_filtro, tipo_nota, erro, arquivo_path, status)
+                        cursor.execute("""
+                                CREATE TABLE IF NOT EXISTS registros (
+                                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                data TEXT,
+                                empresa TEXT,
+                                tipo_nota TEXT,
+                                erro TEXT,
+                                arquivo_erro TEXT,
+                                status TEXT)""")
+            conn.commit()
 
             cursor.execute("INSERT INTO registros (data, empresa, tipo_nota, erro, arquivo_erro, status) VALUES (?, ?, ?, ?, ?, ?)",
                         (data_atual, empresa_filtro, tipo_nota, erro, arquivo_path, status))
