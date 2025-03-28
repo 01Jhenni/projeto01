@@ -1,6 +1,9 @@
 streamlit
-
-plotly
-
-hashlib
-
+pandas
+numpy
+PyMuPDF
+pdfplumber
+openpyxl
+pytesseract
+Pillow
+watchdog
