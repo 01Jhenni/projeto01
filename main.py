@@ -287,7 +287,7 @@ elif menu == "Controle Importação":
                     f.write(arquivo.read())
             
             status = 'OK' if not erro else 'Pendente'
-                        cursor.execute("""
+            cursor.execute("""
                                 CREATE TABLE IF NOT EXISTS registros (
                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                                 data TEXT,
