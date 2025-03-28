@@ -276,7 +276,7 @@ elif menu == "Controle Importação":
         arquivo = st.file_uploader("Anexar imagem do erro", type=["png", "jpeg", "jpg"])
         submit = st.form_submit_button("Registrar")
         if submit:
-            data_atual = datetime.date.today().strftime("%d-%m-%Y")
+            data_atual = datetime.today().strftime("%d-%m-%Y")
             arquivo_path = ""
             
             if arquivo:
