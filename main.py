@@ -287,7 +287,7 @@ elif menu == "Controle Importação":
                     f.write(arquivo.read())
             
             status = 'OK' if not erro else 'Pendente'
-            print(data_atual, empresa, tipo_nota, erro, arquivo_erro, status)
+            print(data_atual, empresa_filtro, tipo_nota, erro, arquivo_path, status)
 
             cursor.execute("INSERT INTO registros (data, empresa, tipo_nota, erro, arquivo_erro, status) VALUES (?, ?, ?, ?, ?, ?)",
                         (data_atual, empresa_filtro, tipo_nota, erro, arquivo_path, status))
