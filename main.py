@@ -305,21 +305,38 @@ elif menu == "Controle Importação":
             st.success("✅ Registro salvo com sucesso!")
         
 
-
+import os
+import urllib.parse
+import streamlit as st
+import webbrowser
 import subprocess
+import sys
 
 def open_outlook(email_destino, assunto, corpo, arquivo_erro=None):
     try:
+        # Codificar caracteres especiais no assunto e corpo
         assunto = urllib.parse.quote(assunto)
         corpo = urllib.parse.quote(corpo)
 
+        # Adicionar referência ao arquivo de erro no corpo
         if arquivo_erro and os.path.exists(arquivo_erro):
             corpo += f"\n\nAnexo: {arquivo_erro}"
 
         if sys.platform == "win32":
-            subprocess.run(["outlook.exe", "/c", "ipm.note", f"/m {email_destino}?subject={assunto}&body={corpo}"], check=True)
+            try:
+                # Primeiro, tenta abrir o Outlook diretamente pelo sistema
+                subprocess.run(["outlook.exe", "/c", "ipm.note", f"/m {email_destino}?subject={assunto}&body={corpo}"], check=True)
+            except FileNotFoundError:
+                try:
+                    # Se não encontrar, tenta abrir pelo caminho absoluto (ajuste conforme necessário)
+                    outlook_path = r"C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE"
+                    subprocess.run([outlook_path, "/c", "ipm.note", f"/m {email_destino}?subject={assunto}&body={corpo}"], check=True)
+                except FileNotFoundError:
+                    st.error("Outlook não encontrado no sistema. Verifique se está instalado corretamente.")
         else:
-            webbrowser.open(f"mailto:{email_destino}?subject={assunto}&body={corpo}")
+            # Se não for Windows, usa o mailto
+            mailto_link = f"mailto:{email_destino}?subject={assunto}&body={corpo}"
+            webbrowser.open(mailto_link)
     except Exception as e:
         st.error(f"Erro ao tentar abrir o Outlook: {str(e)}")
 
