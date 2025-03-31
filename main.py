@@ -306,30 +306,20 @@ elif menu == "Controle Importação":
         
 
 
-import os
-import urllib.parse
-import streamlit as st
-import webbrowser
-import sys
+import subprocess
 
 def open_outlook(email_destino, assunto, corpo, arquivo_erro=None):
     try:
-        # Codifica os parâmetros do e-mail para evitar problemas com caracteres especiais
         assunto = urllib.parse.quote(assunto)
         corpo = urllib.parse.quote(corpo)
 
-        # Se houver um arquivo de erro, adicionar a informação ao corpo
         if arquivo_erro and os.path.exists(arquivo_erro):
             corpo += f"\n\nAnexo: {arquivo_erro}"
 
-        # Comando para abrir o Outlook no Windows
         if sys.platform == "win32":
-            outlook_command = f'outlook.exe /c ipm.note /m "{email_destino}?subject={assunto}&body={corpo}"'
-            os.system(outlook_command)
+            subprocess.run(["outlook.exe", "/c", "ipm.note", f"/m {email_destino}?subject={assunto}&body={corpo}"], check=True)
         else:
-            # Usa o webbrowser como fallback em outros sistemas
-            mailto_link = f"mailto:{email_destino}?subject={assunto}&body={corpo}"
-            webbrowser.open(mailto_link)
+            webbrowser.open(f"mailto:{email_destino}?subject={assunto}&body={corpo}")
     except Exception as e:
         st.error(f"Erro ao tentar abrir o Outlook: {str(e)}")
 
