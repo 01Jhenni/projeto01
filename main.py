@@ -424,7 +424,7 @@ elif menu == "Indicadores":
             st.plotly_chart(fig4)
     
     st.subheader("📥 Download de Registros")
-    data_hoje = datetime.date.today().strftime("%d-%m-%Y")
+    data_hoje = date.today().strftime("%d-%m-%Y")
     df_hoje = registros[registros['data'] == data_hoje]
     if not df_hoje.empty:
         csv = df_hoje.to_csv(index=False).encode("utf-8")
