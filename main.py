@@ -306,24 +306,33 @@ elif menu == "Controle Importação":
         
 
 
-# Função para abrir o Outlook com uma nova mensagem
+import os
+import urllib.parse
+import streamlit as st
+import webbrowser
+import sys
+
 def open_outlook(email_destino, assunto, corpo, arquivo_erro=None):
     try:
         # Codifica os parâmetros do e-mail para evitar problemas com caracteres especiais
         assunto = urllib.parse.quote(assunto)
         corpo = urllib.parse.quote(corpo)
 
-        # Se o arquivo de erro existir, adicione ao corpo do e-mail (será necessário adicionar manualmente como anexo no Outlook)
+        # Se houver um arquivo de erro, adicionar a informação ao corpo
         if arquivo_erro and os.path.exists(arquivo_erro):
-            corpo += f"\n\nAnexo: {arquivo_erro}"  # Aqui, o link para o arquivo será incluído no corpo
+            corpo += f"\n\nAnexo: {arquivo_erro}"
 
-        # Monta o comando mailto para abrir a tela de envio de e-mail no Outlook
-        mailto_link = f"mailto:{email_destino}?subject={assunto}&body={corpo}"
-        
-        # Usa o webbrowser para abrir o link "mailto" diretamente
-        webbrowser.open(mailto_link)
+        # Comando para abrir o Outlook no Windows
+        if sys.platform == "win32":
+            outlook_command = f'outlook.exe /c ipm.note /m "{email_destino}?subject={assunto}&body={corpo}"'
+            os.system(outlook_command)
+        else:
+            # Usa o webbrowser como fallback em outros sistemas
+            mailto_link = f"mailto:{email_destino}?subject={assunto}&body={corpo}"
+            webbrowser.open(mailto_link)
     except Exception as e:
         st.error(f"Erro ao tentar abrir o Outlook: {str(e)}")
+
 
 # Inicializa o estado de envio de e-mail
 if "emails_enviados" not in st.session_state:
