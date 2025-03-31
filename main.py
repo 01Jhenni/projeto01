@@ -312,6 +312,20 @@ import webbrowser
 import subprocess
 import sys
 
+
+# Conectando ao banco de dados SQLite
+conn = sqlite3.connect('importacao02_register.db')
+cursor = conn.cursor()
+
+# Verifica se a variável empresa_filtro está definida
+if empresa_filtro and empresa_filtro.strip():
+    query = "SELECT * FROM registros WHERE empresa LIKE ?"
+    registros = pd.read_sql_query(query, conn, params=(f"%{empresa_filtro}%",))
+else:
+    query = "SELECT * FROM registros"
+    registros = pd.read_sql_query(query, conn)
+
+
 def open_outlook(email_destino, assunto, corpo, arquivo_erro=None):
     try:
         # Codificar caracteres especiais no assunto e corpo
