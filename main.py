@@ -20,7 +20,7 @@ import urllib.parse
 import sqlite3
 import os
 from datetime import date
-
+from datetime import datetime
 
 
 
@@ -446,7 +446,7 @@ def load_messages():
 # Função para salvar as mensagens
 def save_message(username, message):
     # Pega o horário atual no formato HH:MM:SS
-    timestamp = date.now().strftime('%Y-%m-%d %H:%M:%S')
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     with open("messages.txt", "a") as f:
         f.write(f"{timestamp} - {username}: {message}\n")
 
