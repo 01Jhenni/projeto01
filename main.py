@@ -508,7 +508,7 @@ if menu == "Página Inicial":
     st.title("Bem Vindo")
     st.write("Assista o tutorial de como utilizar nosso sistema.")
     # URL do vídeo que será exibido na página inicial
-    video_url = "https://youtu.be/eW6U6z5tzwE?si=BB1Nlm3YcNKfYYWS"  # Substitua pelo link do seu vídeo
+    video_url = "https://youtu.be/aP0sPUVjs40?si=n_lO5UnNNKR1mBwe"  # Substitua pelo link do seu vídeo
 
     # Exibe o vídeo diretamente na página inicial
     st.video(video_url)
