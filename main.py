@@ -175,13 +175,10 @@ def verificar_arquivo(arquivo):
 def classificar_arquivo(nome_arquivo):
     categorias = {
         "NFE": ["NFe", "entrada", "saída"],
-        "CTE_ENTRADA": ["CTe", "entrada"],
-        "CTE_SAIDA": ["CTe", "saida"],
-        "CTE_CANCELADA": ["CTe", "cancelada"],
+        "CTE": ["CTe", "entrada", "saída],
         "NFCE_SAIDA": ["NFCe"],
         "SPED": ["SPED", ".txt"],
-        "NFS_TOMADOS": [ "nfse"],
-        "NFS_PRESTADO": ["nfse"],
+        "NFS": [ "nfse"],
         "PLANILHA": [".xls", ".xlsx", "csv"],
     }
     nome_arquivo_lower = nome_arquivo.lower()
