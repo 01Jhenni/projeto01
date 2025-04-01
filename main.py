@@ -59,7 +59,7 @@ def hash_password(password):
 
 # Adicionar usuário administrador
 cursor.execute("INSERT OR REPLACE INTO users (username, password, empresas, permissoes) VALUES (?, ?, ?, ?)", 
-               ("USUARIO", hash_password("Refinnehj262"), ",".join(lista_empresas), ",".join(lista_funcionalidades)))
+               ("JHENNIFER", hash_password("Refinnehj262"), ",".join(lista_empresas), ",".join(lista_funcionalidades)))
 conn.commit()
 
 # Função para adicionar ou atualizar usuário
