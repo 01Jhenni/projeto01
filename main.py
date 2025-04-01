@@ -175,7 +175,7 @@ def verificar_arquivo(arquivo):
 def classificar_arquivo(nome_arquivo):
     categorias = {
         "NFE": ["NFe", "entrada", "saída"],
-        "CTE": ["CTe", "entrada", "saída],
+        "CTE": ["CTe", "entrada", "saída"],
         "NFCE_SAIDA": ["NFCe"],
         "SPED": ["SPED", ".txt"],
         "NFS": [ "nfse"],
