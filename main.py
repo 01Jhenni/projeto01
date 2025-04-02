@@ -22,11 +22,28 @@ import os
 from datetime import date
 from datetime import datetime
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+DATABASE_URL = os.getenv("postgresql://postgres:[YOUR-PASSWORD]@db.dirvujbiaqfvlxizjnax.supabase.co:5432/postgres")
+
+conn = psycopg2.connect(DATABASE_URL, sslmode="require")
+
+import psycopg2
+
+# Connection String do Supabase ou Neon
+DATABASE_URL = "postgresql://postgres:[YOUR-PASSWORD]@db.dirvujbiaqfvlxizjnax.supabase.co:5432/postgres"
+
+# Nova conexão com PostgreSQL remoto
+try:
+    conn = psycopg2.connect(DATABASE_URL, sslmode="require")
+    cursor = conn.cursor()
+    print("Conexão com PostgreSQL bem-sucedida!")
+except Exception as e:
+    print(f"Erro ao conectar ao banco de dados: {e}")
 
 
-# Conectar ao banco de dados
-conn = sqlite3.connect("banco.db", check_same_thread=False)
-cursor = conn.cursor()
 
 # Criar tabela de usuários se não existir
 cursor.execute('''CREATE TABLE IF NOT EXISTS users (
@@ -179,10 +196,6 @@ if menu == "Configurações":
             st.rerun()
 
 
-
-# Conectar ao banco de dados
-conn = sqlite3.connect("banco.db", check_same_thread=False)
-cursor = conn.cursor()
 
 #Organizador de Arquivos Fiscais
 def salvar_arquivo(arquivo, pasta_destino):
