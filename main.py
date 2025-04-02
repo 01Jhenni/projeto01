@@ -29,7 +29,8 @@ load_dotenv()
 import streamlit as st
 import psycopg2
 
-DATABASE_URL = st.secrets["DATABASE_URL"]
+DATABASE_URL = st.secrets["postgres://01jhenni:Refinnehj262@HOST:5432/banco"
+"]
 
 conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 
@@ -37,7 +38,8 @@ conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 import psycopg2
 
 # Connection String do Supabase ou Neon
-DATABASE_URL = "postgresql://postgres:[YOUR-PASSWORD]@db.dirvujbiaqfvlxizjnax.supabase.co:5432/postgres"
+DATABASE_URL = "postgres://01jhenni:Refinnehj262@HOST:5432/banco"
+
 
 # Nova conexão com PostgreSQL remoto
 try:
