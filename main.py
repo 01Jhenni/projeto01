@@ -25,7 +25,7 @@ from datetime import datetime
 
 
 # Conectar ao banco de dados
-conn = sqlite3.connect("users.db", check_same_thread=False)
+conn = sqlite3.connect("banco.db", check_same_thread=False)
 cursor = conn.cursor()
 
 # Criar tabela de usuários se não existir
@@ -150,7 +150,7 @@ if menu == "Configurações":
 
 
 # Conectar ao banco de dados
-conn = sqlite3.connect("importacao02_register.db", check_same_thread=False)
+conn = sqlite3.connect("banco.db", check_same_thread=False)
 cursor = conn.cursor()
 
 #Organizador de Arquivos Fiscais
@@ -335,7 +335,7 @@ if menu == "Registros Importação":
     empresa_filtro = st.selectbox("Nome da empresa", st.session_state.empresas)
 
     # Conectando ao banco de dados SQLite
-    conn = sqlite3.connect('importacao02_register.db')
+    conn = sqlite3.connect('banco.db')
     cursor = conn.cursor()
 
     query = "SELECT * FROM registros"
@@ -447,7 +447,7 @@ def save_message(username, message):
 # Função para pegar o nome do usuário a partir do banco de dados
 def get_user_name():
     # Conectar ao banco de dados
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect('banco.db')
     cursor = conn.cursor()
 
     # Selecionar o primeiro usuário ou um usuário específico
