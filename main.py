@@ -58,7 +58,7 @@ def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
 # Adicionar usuário administrador
-cursor.execute("INSERT OR REPLACE INTO users (username, password, empresas, permissoes) VALUES (?, ?, ?, ?)", 
+cursor.execute("INSERT OR UPDATE INTO users (username, password, empresas, permissoes) VALUES (?, ?, ?, ?)", 
                ("JHENNIFER", hash_password("Refinnehj262"), ",".join(lista_empresas), ",".join(lista_funcionalidades)))
 conn.commit()
 
