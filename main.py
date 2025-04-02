@@ -61,33 +61,36 @@ def hash_password(password):
 cursor.execute("SELECT password, empresas, permissoes FROM users WHERE username = ?", ("JHENNIFER",))
 user_data = cursor.fetchone()
 
+# Se o usuário já existe, apenas atualiza os campos necessários
 if user_data:
-    # O usuário já existe, então mantemos os dados antigos
     senha_atual = user_data[0]
-    empresas_atuais = user_data[1] if user_data[1] else ""
-    permissoes_atuais = user_data[2] if user_data[2] else ""
+    empresas_atuais = set(user_data[1].split(",")) if user_data[1] else set()
+    permissoes_atuais = set(user_data[2].split(",")) if user_data[2] else set()
 
-    # Apenas atualizar se houver novos valores
-    nova_senha = hash_password("Refinnehj262") if senha_atual != hash_password("Refinnehj262") else senha_atual
-    novas_empresas = empresas_atuais if not lista_empresas else ",".join(set(empresas_atuais.split(",") + lista_empresas))
-    novas_permissoes = permissoes_atuais if not lista_funcionalidades else ",".join(set(permissoes_atuais.split(",") + lista_funcionalidades))
+    # Adicionando somente os novos valores sem remover os anteriores
+    novas_empresas = empresas_atuais.union(set(lista_empresas)) if lista_empresas else empresas_atuais
+    novas_permissoes = permissoes_atuais.union(set(lista_funcionalidades)) if lista_funcionalidades else permissoes_atuais
 
-    # Atualizar somente os campos necessários
+    # Atualizar apenas se houver mudanças
     cursor.execute("""
         UPDATE users 
         SET password = ?, empresas = ?, permissoes = ? 
         WHERE username = ?
-    """, (nova_senha, novas_empresas, novas_permissoes, "JHENNIFER"))
+    """, (
+        hash_password("Refinnehj262") if senha_atual != hash_password("Refinnehj262") else senha_atual,
+        ",".join(novas_empresas),
+        ",".join(novas_permissoes),
+        "JHENNIFER"
+    ))
 
+# Se o usuário **não existir**, criar um novo registro
 else:
-    # O usuário não existe, então inserimos um novo registro
     cursor.execute("""
         INSERT INTO users (username, password, empresas, permissoes) 
         VALUES (?, ?, ?, ?)
     """, ("JHENNIFER", hash_password("Refinnehj262"), ",".join(lista_empresas), ",".join(lista_funcionalidades)))
 
 conn.commit()
-
 
 
 # Função para adicionar ou atualizar usuário
