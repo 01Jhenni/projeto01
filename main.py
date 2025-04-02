@@ -37,8 +37,7 @@ conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 import psycopg2
 
 # Connection String do Supabase ou Neon
-DATABASE_URL = "DATABASE_URL="postgres://postgres:Refinnehj262@db.dirvujbiaqfvlxizjnax.supabase.co:5432/postgres"
-"
+DATABASE_URL ="postgres://postgres:Refinnehj262@db.dirvujbiaqfvlxizjnax.supabase.co:5432/postgres"
 
 
 # Nova conexão com PostgreSQL remoto
