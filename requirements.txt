@@ -9,3 +9,4 @@ Pillow
 watchdog
 plotly
 python-dotenv
+psycopg2-binary
