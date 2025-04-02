@@ -26,9 +26,13 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-DATABASE_URL = os.getenv("postgresql://postgres:[YOUR-PASSWORD]@db.dirvujbiaqfvlxizjnax.supabase.co:5432/postgres")
+import streamlit as st
+import psycopg2
+
+DATABASE_URL = st.secrets["DATABASE_URL"]
 
 conn = psycopg2.connect(DATABASE_URL, sslmode="require")
+
 
 import psycopg2
 
