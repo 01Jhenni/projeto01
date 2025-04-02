@@ -57,10 +57,35 @@ conn.commit()
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
-# Adicionar usuário administrador
-cursor.execute("INSERT OR REPLACE INTO users (username, password, empresas, permissoes) VALUES (?, ?, ?, ?)", 
-               ("JHENNIFER", hash_password("Refinnehj262"), ",".join(lista_empresas), ",".join(lista_funcionalidades)))
+# Verificar se o usuário já existe
+cursor.execute("SELECT empresas, permissoes FROM users WHERE username = ?", ("JHENNIFER",))
+user_data = cursor.fetchone()
+
+if user_data:
+    # O usuário já existe, então fazemos um UPDATE preservando os dados antigos
+    empresas_atuais = set(user_data[0].split(",")) if user_data[0] else set()
+    permissoes_atuais = set(user_data[1].split(",")) if user_data[1] else set()
+
+    # Adicionar as novas empresas e permissões sem remover as anteriores
+    novas_empresas = empresas_atuais.union(set(lista_empresas))
+    novas_permissoes = permissoes_atuais.union(set(lista_funcionalidades))
+
+    # Atualizar o usuário mantendo os dados antigos
+    cursor.execute("""
+        UPDATE users 
+        SET password = ?, empresas = ?, permissoes = ? 
+        WHERE username = ?
+    """, (hash_password("Refinnehj262"), ",".join(novas_empresas), ",".join(novas_permissoes), "JHENNIFER"))
+
+else:
+    # O usuário não existe, então fazemos um INSERT normalmente
+    cursor.execute("""
+        INSERT INTO users (username, password, empresas, permissoes) 
+        VALUES (?, ?, ?, ?)
+    """, ("JHENNIFER", hash_password("Refinnehj262"), ",".join(lista_empresas), ",".join(lista_funcionalidades)))
+
 conn.commit()
+
 
 # Função para adicionar ou atualizar usuário
 def save_user(username, password, empresas, permissoes):
