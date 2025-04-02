@@ -8,3 +8,4 @@ pytesseract
 Pillow
 watchdog
 plotly
+python-dotenv
