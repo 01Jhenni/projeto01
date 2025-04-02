@@ -29,8 +29,7 @@ load_dotenv()
 import streamlit as st
 import psycopg2
 
-DATABASE_URL = st.secrets["postgres://01jhenni:Refinnehj262@HOST:5432/banco"
-"]
+DATABASE_URL = st.secrets["postgres://01jhenni:Refinnehj262@HOST:5432/banco"]
 
 conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 
